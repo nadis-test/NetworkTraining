@@ -3,13 +3,19 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.Assertions;
 
 public class Network {
-    private static String getLocales() throws IOException {
-        URL obj = new URL("https://api.binomo.com/platform/locales");
+    private static final Gson gson = new Gson();
+    private static <R extends BaseData> BaseResponse<R> get(String url) throws IOException {
+        URL obj = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
         connection.setRequestMethod("GET");
         int responseCode = connection.getResponseCode();
@@ -28,15 +34,14 @@ public class Network {
         } else {
             System.out.println("GET request not worked");
         }
-        connection.disconnect();
-        return response.toString();
+        return gson.fromJson(response.toString(), BaseResponse.class);
+
     }
 
     public static void main(String[] args) throws IOException {
-        String locales = getLocales();
-        Gson gson = new Gson();
-        BaseResponse response = gson.fromJson(locales, BaseResponse.class);
-        Assertions.assertEquals("en", response.data.defaultLocale);
-        Assertions.assertTrue (response.data.availableLocales.contains("ru"));
+        LocalesResponse locales = get <Locales> ("https://api.binomo.com/platform/locales");
+        Locales data = locales.data;
+        Assertions.assertEquals("en", data.defaultLocale);
+        Assertions.assertTrue (data.availableLocales.contains("ru"));
     }
 }

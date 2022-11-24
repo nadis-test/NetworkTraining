@@ -1,4 +1,4 @@
 import com.google.gson.annotations.SerializedName;
-public class BaseResponse {
-    @SerializedName("data") Locales data;
+class BaseResponse<T extends BaseData> {
+    @SerializedName("data") T data;
 }
