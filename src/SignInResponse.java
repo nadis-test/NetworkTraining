@@ -1,2 +1,2 @@
-public class SignInResponse extends BaseResponse<AuthData>{
+public class SignInResponse extends SingleResponse<AuthData> {
 }

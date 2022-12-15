@@ -1,3 +1,3 @@
-class LocalesResponse extends BaseResponse <Locales> {
+class LocalesResponse extends SingleResponse<Locales> {
 
 }

@@ -2,7 +2,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-class BaseResponse<T extends BaseData> {
-    @SerializedName("data") T data;
-    @SerializedName("errors") List<Error> errors;
+class BaseResponse {
+
+    @SerializedName("errors") List<Error> errors; // ошибки возвращаются для каждой модели
 }
