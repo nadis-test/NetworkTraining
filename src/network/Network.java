@@ -1,3 +1,5 @@
+package network;
+
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -9,7 +11,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
+import data.Locales;
 import org.junit.jupiter.api.Assertions;
+import responses.BaseResponse;
+import responses.LocalesResponse;
 
 public class Network {
     public static void main(String[] args) throws IOException {

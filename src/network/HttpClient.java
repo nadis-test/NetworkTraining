@@ -1,3 +1,5 @@
+package network;
+
 import okhttp3.OkHttpClient;
 
 public class HttpClient {

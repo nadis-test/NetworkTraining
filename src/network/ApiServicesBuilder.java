@@ -1,4 +1,7 @@
+package network;
+
 import com.google.gson.Gson;
+import modules.auth.AuthTokenStorage;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -7,8 +10,9 @@ public class ApiServicesBuilder {
     public static ApiServices createApiServices(AuthTokenStorage authTokenStorage)
     {
         final Gson gson = new Gson();
+        String locale = "en";
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new CommonInterceptor())
+                .addInterceptor(new CommonInterceptor(locale))
                 .addInterceptor(new AuthInterceptor(authTokenStorage))
                 .build();
 

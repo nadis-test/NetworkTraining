@@ -1,7 +1,9 @@
+package network;
+
+import data.SignInData;
+import responses.*;
 import retrofit2.Call;
 import retrofit2.http.*;
-
-import java.util.Map;
 
 public interface ApiServices {
     @GET("platform/locales")
@@ -10,5 +12,11 @@ public interface ApiServices {
     Call<SignInResponse> signIn(@Body SignInData signInData);
     @GET("bank/v1/read")
     Call<BankResponse> bankData();
+
+    @GET("platform/private/v4/assets")
+    Call<AssetsResponse> getAssetData();
+
+    @GET("platform/private/statuses")
+    Call<StatusResponse> getStatusesData();
 }
 
