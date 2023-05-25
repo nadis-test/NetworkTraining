@@ -1,5 +1,6 @@
 package network;
 
+import data.ProfileEditableData;
 import data.SignInData;
 import responses.*;
 import retrofit2.Call;
@@ -18,5 +19,11 @@ public interface ApiServices {
 
     @GET("platform/private/statuses")
     Call<StatusResponse> getStatusesData();
+
+    @GET("platform/private/v2/profile")
+    Call<ProfileResponse> getProfileData();
+
+    @PATCH("platform/private/v2/profile/edit")
+    Call<Void> editProfileData(@Body ProfileEditableData profileData);
 }
 

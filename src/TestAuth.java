@@ -255,6 +255,34 @@ public class TestAuth {
         Assertions.assertEquals(statusesExpected, statuses, "The threshold values are not as expected");
 
         //тесты на профиль и его редактирование
+    }
+
+    @Test
+    public void checkProfile() throws IOException {
+        retrofit2.Call<ProfileResponse> profileCall = apiServices.getProfileData();
+        retrofit2.Response<ProfileResponse> profileResponse = profileCall.execute();
+
+        Assertions.assertTrue(profileResponse.body().data.id != null, "id should be a number");
+        Assertions.assertEquals(149320504, profileResponse.body().data.id, "id not expected");
+
+    }
+
+    @Test
+    public void editProfile() throws IOException {
+
+        ProfileEditableData profileEditableData = new ProfileEditableData();
+        profileEditableData.first_name = "First Name";
+        profileEditableData.last_name = "Last Name";
+        profileEditableData.gender = "female";
+
+        retrofit2.Response<Void> execute = apiServices.editProfileData(profileEditableData).execute();
+
+        retrofit2.Call<ProfileResponse> profileCall = apiServices.getProfileData();
+        retrofit2.Response<ProfileResponse> profileResponse = profileCall.execute();
+
+        Assertions.assertEquals("First Name", profileResponse.body().data.first_name, "Should be equal");
+        Assertions.assertEquals("Last Name", profileResponse.body().data.last_name, "Should be equal");
+        Assertions.assertEquals("female", profileResponse.body().data.gender, "Should be equal");
 
     }
 
